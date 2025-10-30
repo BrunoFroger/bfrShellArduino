@@ -25,6 +25,7 @@ int aide(String commande){
             Serial.print(buffer);
         }
         Serial.println();
+        Serial.println("Pour l'aide d'une commande spécifique tapez : aide <commnde>");
     } else {
         Serial.println("aide de la fonction " + cdeTbl[1]);
         for (int i = 0 ; i < NB_COMMANDES ; i++){

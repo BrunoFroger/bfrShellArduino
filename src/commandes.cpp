@@ -20,5 +20,5 @@
 //          - relancer le build 
 //      - mettre a jour la variable nb_commandes
 
-const String listeCommandes[]={"aide", "cat", "cd", "env", "ls", "pwd", "set", "unset"};
-int (*functptr[])(String) = { aide, cat, cd, env, ls, pwd, set, unset } ;
+const String listeCommandes[]={"aide", "cat", "cd", "env", "grep", "ls", "pwd", "set", "unset"};
+int (*functptr[])(String) = { aide, cat, cd, env, grep, ls, pwd, set, unset } ;

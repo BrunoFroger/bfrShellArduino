@@ -11,6 +11,8 @@
 #include "sd.hpp"
 
 String saisie;
+File *fluxInput, *fluxOutput;
+
 
 //=================================================
 //

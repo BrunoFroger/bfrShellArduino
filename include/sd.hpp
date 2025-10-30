@@ -14,8 +14,9 @@
     #define __SD__
 
     extern String repertoire;
-    
+
     extern int sdInit(void);
     extern int isSdAvailable(void);
     extern File sdOpen(String);
+    extern int fileExist(String);
 #endif

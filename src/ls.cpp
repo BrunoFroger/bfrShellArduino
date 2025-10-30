@@ -32,6 +32,7 @@ int ls(String commande){
     //     cdeTbl[1] = repertoire;
     // }
     if (isSdAvailable()){
+        Serial.println("ouverture du repertoire " + repertoire);
         directory = sdOpen(repertoire);
         if (!directory.isDirectory()) {
             Serial.println(repertoire + " n'est pas un répertoire");

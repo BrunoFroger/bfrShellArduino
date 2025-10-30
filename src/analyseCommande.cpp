@@ -17,8 +17,9 @@
 
 
 String cdeTbl[NB_PARAM];
+String listeCdes[NB_PARAM];
 
-void decomposeCommande(String data, char separateur){
+void decomposeCommande(String data, char separateur, String listeDatas[]){
 
     const int maxTokens = 10; // Nombre maximum d'éléments dans le tableau
     String tokens[maxTokens];
@@ -28,12 +29,12 @@ void decomposeCommande(String data, char separateur){
     int commaIndex;
 
     while ((commaIndex = data.indexOf(separateur, startIndex)) != -1 && tokenCount < maxTokens) {
-        cdeTbl[tokenCount++] = data.substring(startIndex, commaIndex);
+        listeDatas[tokenCount++] = data.substring(startIndex, commaIndex);
         startIndex = commaIndex + 1;
     }
     // Ajouter le dernier token après la dernière virgule
     if (startIndex < data.length() && tokenCount < maxTokens) {
-        cdeTbl[tokenCount++] = data.substring(startIndex);
+        listeDatas[tokenCount++] = data.substring(startIndex);
     }
 
     // Afficher les tokens
@@ -51,7 +52,8 @@ int analyseCommande(String commande){
     // buffer = "Analyse de la commande <" + commande + ">";
     // Serial.println(buffer);
     // Serial.println("Analyse de la commande <" + commande + ">");
-    decomposeCommande(commande, ' ');
+    // decomposeCommande(commande, '|', listeCdes);
+    decomposeCommande(commande, ' ', cdeTbl);
     int i;
     if (!cdeTbl[0].equals("")){
         for (i=0 ; i < NB_COMMANDES ; i++){

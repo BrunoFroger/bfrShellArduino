@@ -17,6 +17,10 @@
 
     extern int sdInit(void);
     extern int isSdAvailable(void);
-    extern File sdOpen(String);
+    extern File sdOpenRead(String);
+    extern File sdOpenWrite(String);
+    extern int sdRemove(String);
+    extern int sdMkdir(String);
+    extern int sdRmdir(String);
     extern int fileExist(String);
 #endif

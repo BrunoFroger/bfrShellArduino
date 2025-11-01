@@ -48,7 +48,7 @@ int getDigitalPin(String commande){
 void setDigitalPinAide(void){
     Serial.println("Commande setDigitalPin :");
     Serial.println("fonction : modifie la valeur d'une sortie digitale");
-    Serial.println("usage    : setDigitalPin <pin number>");
+    Serial.println("usage    : setDigitalPin <pin number> <valeur>");
 }
 
 int setDigitalPin(String commande){

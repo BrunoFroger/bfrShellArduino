@@ -51,7 +51,7 @@ int cd(String commande){
                 }
             } else {
                 // Serial.println("on va dans le repertoire " + cdeTbl[1]); 
-                File directory = sdOpen(repertoire + "/" + cdeTbl[1]);
+                File directory = sdOpenRead(repertoire + "/" + cdeTbl[1]);
                 if (directory){
                     if (directory.isDirectory()){
                         // Serial.println(cdeTbl[1] + " est un repertoire, on y accede");

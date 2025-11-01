@@ -10,6 +10,8 @@
 #include <SPI.h>
 #include <SD.h>
 
+#include "erreurs.hpp"
+
 #define NB_PIPES    10
 
 const int chipSelect = 10;
@@ -56,12 +58,18 @@ int fileExist(String filename){
     return 0;
 }
 
-File sdOpen(String filename){
+File sdOpen(String filename, String mode){
     File fic;
     for (int i = 0 ; i < NB_PIPES ; i++){
         if (tblPipe[i].filename.length() == 0){
             if (SD.exists(filename)){
-                fic = SD.open(filename);
+                if (mode.equals("R")){
+                    fic = SD.open(filename, FILE_READ);
+                } else if (mode.equals("W")){
+                    fic = SD.open(filename, FILE_WRITE);
+                } else {
+                    return fic;
+                }
                 tblPipe[i].filename=filename;
                 tblPipe[i].fic=&fic;
                 return fic;
@@ -69,6 +77,54 @@ File sdOpen(String filename){
         }
     }
     return fic;
+}
+
+File sdOpenRead(String filename){
+    return sdOpen(filename, "R");
+}
+
+File sdOpenWrite(String filename){
+    return sdOpen(filename, "W");
+}
+
+int sdRemove(String filename){
+    if (fileExist(filename)){
+        int res = SD.remove(filename);
+        if (res == 0){
+            Serial.println("ERREUR : Impossible d'effacer le fichier : " + filename);
+        }
+    } else {
+        Serial.println("ERRUER : le fichier " + filename + " n'existe pas");
+        return ERREUR_FILE_NOT_FOUND;
+    }
+    return NO_ERREUR;
+}
+
+int sdRmdir(String filename){
+    if (fileExist(filename)){
+        return SD.rmdir(filename);
+    } else {
+        Serial.println("ERRUER : le repertoire " + filename + " n'existe pas");
+        return ERREUR_FILE_NOT_FOUND;
+    }
+    return NO_ERREUR;
+}
+
+int sdMkdir(String filename){
+    int result = NO_ERREUR;
+    if (! fileExist(filename)){
+        int res = SD.mkdir(filename);
+        if (res == 0){
+            Serial.println("Erreur : impossible de creer le repertoire " + filename);
+            result = ERREUR_CREATION_FILE;
+        } else {
+            result = NO_ERREUR;
+        }
+    } else {
+        Serial.println("ERRUER : le repertoire " + filename + " existe déjà");
+        result = ERREUR_FILE_EXIST;
+    }
+    return result;
 }
 
 File sdPipeOpen(String filename){

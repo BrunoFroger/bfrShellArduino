@@ -1,6 +1,6 @@
 //---------------------------------------------------
 //
-//      cat.cpp
+//      rmdir.cpp
 //
 //      (c) B. Froger 2025
 //
@@ -14,17 +14,16 @@
 #include "erreurs.hpp"
 #include "sd.hpp"
 
-void catAide(void){
-    Serial.println("Commande cat :");
-    Serial.println("fonction : affiche a l'ecran le contenu d'un fichier");
-    Serial.println("usage    : cat <nom du fichier>");
+void rmdirAide(void){
+    Serial.println("Commande rm :");
+    Serial.println("fonction : supprime un fichier");
+    Serial.println("usage    : rm <nom du fichier>");
 }
 
-int cat(String commande){
-    // decomposeCommande(commande, ' ');
+int rmdir(String commande){
     int returnValue=NO_ERREUR;
     if (commande.equals("aide")){
-        catAide();
+        rmdirAide();
         return returnValue;
     } 
     if (isSdAvailable()){
@@ -33,19 +32,8 @@ int cat(String commande){
         filename = cdeTbl[1];
         // Serial.println("filename = " + filename);
         if (filename.length() > 0){
-            fic = sdOpenRead(filename);
-            if (!fic){
-                Serial.println("ERREUR : fichier " + filename + " non trouvé");
-                returnValue=ERREUR_FILE_NOT_FOUND;
-            } else {
-                if (fic.isDirectory()){
-                    Serial.println(filename + " est un repertoire");
-                    returnValue=ERREUR_FILE_NOT_FOUND;
-                }
-                while (fic.available()){
-                    Serial.write(fic.read());
-                }
-                fic.close();
+            if (fileExist(filename)){
+                sdRmdir(filename);
             }
         } else {
             Serial.printf("manque nom du fichier\n");

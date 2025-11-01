@@ -36,7 +36,7 @@ int grep(String commande){
     // Serial.println("recherche de <" + pattern + "> dans le fichier <" + input + ">");
     File fichier;
     if (fileExist(input) == 1){
-        fichier = sdOpen(input);
+        fichier = sdOpenRead(input);
     } else {
         Serial.println("Erreur : le fichier <" + input + "> n'existe pas");
         return ERREUR_FILE_NOT_FOUND;

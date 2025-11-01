@@ -20,5 +20,7 @@
 //          - relancer le build 
 //      - mettre a jour la variable nb_commandes
 
-const String listeCommandes[]={"aide", "cat", "cd", "env", "getAnalogPin", "getDigitalPin", "grep", "ls", "pwd", "set", "setDigitalPin", "unset"};
-int (*functptr[])(String) = { aide, cat, cd, env, getAnalogPin, getDigitalPin, grep, ls, pwd, set, setDigitalPin, unset } ;
+const String listeCommandes[]={"aide", "cat", "cd", "cp", "env", "getAnalogPin", 
+            "getDigitalPin", "grep", "ls", "mkdir", "pwd", "rm", "rmdir", "set", "setDigitalPin", "unset"};
+int (*functptr[])(String) = { aide, cat, cd, cp, env, getAnalogPin, 
+            getDigitalPin, grep, ls, mkdir, pwd, rm, rmdir, set, setDigitalPin, unset } ;

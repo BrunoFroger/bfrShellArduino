@@ -59,6 +59,7 @@ int analyseCommande(String commande){
         for (i=0 ; i < NB_COMMANDES ; i++){
             if (cdeTbl[0] == listeCommandes[i]){
                 returnValue=(*functptr[i])(commande);
+                // Serial.println("Fin de la cde : " + cdeTbl[0]);
                 break;
             }
         }

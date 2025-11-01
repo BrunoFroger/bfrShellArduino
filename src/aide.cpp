@@ -17,12 +17,17 @@ int aide(String commande){
     char buffer[255];
     char buffer1[255];
     int returnValue=NO_ERREUR;
+    int cpt = 0;
     if (cdeTbl[1].length() == 0){
         Serial.println("Liste des commandes disponibles : ");
         for (int i=0 ; i < NB_COMMANDES ; i++){
             listeCommandes[i].toCharArray(buffer1,255);
-            sprintf(buffer, "%10s", buffer1);
+            sprintf(buffer, "%15s", buffer1);
             Serial.print(buffer);
+            if (cpt++ >= 4) {
+                Serial.println();
+                cpt = 0;
+            }
         }
         Serial.println();
         Serial.println("Pour l'aide d'une commande spécifique tapez : aide <commnde>");

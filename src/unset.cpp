@@ -28,7 +28,12 @@ int unset(String commande){
         return returnValue;
     } 
     String variable = cdeTbl[1];
-    // test si la variable existe deja
+    // test si la variable est protegee
+    if (variable.equals("pwd")) returnValue = ERREUR_VARIABLE_PROTEGEE;
+    if (returnValue == ERREUR_VARIABLE_PROTEGEE){
+        Serial.println("Impossible de supprimer une variable protégée");
+        return returnValue;
+    }
     int i;
     for (i = 0 ; i < NB_VARIABLES_ENV ; i++){
         if (variable.equals(listeVariablesEnv[i])){

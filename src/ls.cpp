@@ -27,15 +27,19 @@ int ls(String commande){
         lsAide();
         return returnValue;
     } 
+    String dir;
     // Serial.printf("Liste des fichiers : (a develloper)\n");
-    // if (cdeTbl[1].isEmpty()){
-    //     cdeTbl[1] = repertoire;
-    // }
+    if (! cdeTbl[1].isEmpty()){
+        dir = cdeTbl[1];
+    } else {
+        dir = getPwd();
+    }
     if (isSdAvailable()){
-        // Serial.println("ouverture du repertoire " + repertoire);
-        directory = sdOpenRead(repertoire);
+        // Serial.println("ls : ouverture du repertoire <" + dir + ">");
+        String homeDir = getPwd();
+        directory = sdOpenDir(dir);
         if (!directory.isDirectory()) {
-            Serial.println(repertoire + " n'est pas un répertoire");
+            Serial.println("ls : " + dir + " n'est pas un répertoire");
             return ERREUR_FILE_NOT_FOUND;
         }
         File entry = directory.openNextFile();
@@ -59,6 +63,7 @@ int ls(String commande){
         }
         Serial.println();
         directory.close();
+        sdOpenDir(homeDir);
 
     } else {
         Serial.println("Sd card non disponible");

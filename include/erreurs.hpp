@@ -20,5 +20,6 @@
     #define ERREUR_FILE_EXIST               -6
     #define ERREUR_MODE_OPEN_FILE           -7
     #define ERREUR_CREATION_FILE            -8
+    #define ERREUR_VARIABLE_PROTEGEE        -9
     
 #endif

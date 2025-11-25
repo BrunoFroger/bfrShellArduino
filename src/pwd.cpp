@@ -26,6 +26,6 @@ int pwd(String commande){
         pwdAide();
         return returnValue;
     } 
-    Serial.println(repertoire);
+    Serial.println(getPwd());
     return returnValue;
 }

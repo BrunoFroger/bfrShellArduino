@@ -33,12 +33,13 @@ void setup() {
   Serial.println("Serial initialized");
 
   sdInit();
+  prompt = base_prompt + getPwd() + " > ";
 
   Serial.println("BFR Shell\n");
 
   Serial.println("+-------------------------------+");
   Serial.println("+                               +");
-  Serial.println("+        fin setup              +");
+  Serial.println("+        Arduino SD shell       +");
   Serial.println("+                               +");
   Serial.println("+-------------------------------+");
   Serial.print(prompt);

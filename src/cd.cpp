@@ -23,6 +23,18 @@ void cdAide(void){
 
 int cd(String commande){
     int returnValue = NO_ERREUR;
+    String homeDir = getPwd(); 
+    File dir = sdOpenDir(cdeTbl[1]); 
+    if (! dir.isDirectory()){
+        sdOpenDir(homeDir);
+        Serial.println("ERREUR : " + cdeTbl[1] + " n'est pas un repertoire");
+    }
+
+    prompt = base_prompt + getPwd() + " > ";
+    return returnValue;
+
+
+    String repertoire = getPwd();
     if (commande.equals("aide")){
         cdAide();
         return returnValue;
@@ -32,16 +44,16 @@ int cd(String commande){
             Serial.println("ERREUR : manque nom de repertoire");
             returnValue = ERREUR_FILE_NOT_FOUND;
         } else {
-            // Serial.println("cd => On essaie d'ouvrir : " + cdeTbl[1]);
+            Serial.println("cd => On essaie d'ouvrir : " + cdeTbl[1]);
             if (cdeTbl[1].equals("..")){
-                // Serial.println("on remonte au repertoire parent");
-                if (repertoire.equals("/")){
+                Serial.println("on remonte au repertoire parent");
+                if (repertoire.length() == 0){
                     Serial.println("On est deja a la racine");
                 } else {
                     int lastSlashIndex = repertoire.lastIndexOf('/');
                     if (lastSlashIndex == 0) {
                         // Retour à la racine
-                        repertoire = "/";
+                        repertoire = "";
                         prompt = base_prompt;
                     } else {
                         repertoire = repertoire.substring(0, lastSlashIndex);
@@ -50,13 +62,13 @@ int cd(String commande){
                     }
                 }
             } else {
-                // Serial.println("on va dans le repertoire " + cdeTbl[1]); 
-                File directory = sdOpenRead(repertoire + "/" + cdeTbl[1]);
+                Serial.println("on va dans le repertoire " + cdeTbl[1]); 
+                File directory = sdOpenDir(repertoire + "/" + cdeTbl[1]);
                 if (directory){
                     if (directory.isDirectory()){
-                        // Serial.println(cdeTbl[1] + " est un repertoire, on y accede");
+                        Serial.println(cdeTbl[1] + " est un repertoire, on y accede");
                         // directory = sdOpen(cdeTbl[1]);
-                        if (!repertoire.equals("/")){
+                        if (!repertoire.equals("")){
                             repertoire = repertoire + "/" + directory.name();
                         } else {
                             repertoire = repertoire + directory.name();
@@ -74,6 +86,7 @@ int cd(String commande){
                     returnValue = ERREUR_FILE_NOT_FOUND;
                 }
             }
+            setPwd(repertoire);
         }
     } else {
         Serial.println("Carte SD non disponible");

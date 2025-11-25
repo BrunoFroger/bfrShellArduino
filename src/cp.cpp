@@ -54,9 +54,11 @@ int cp(String commande){
                     returnValue=ERREUR_FILE_NOT_FOUND;
                 }
                 while (ficSource.available()){
-                    Serial.write(ficSource.read());
+                    // Serial.write(ficSource.read());
+                    ficDest.write(ficSource.read());
                 }
                 ficSource.close();
+                ficDest.close();
             }
         } else {
             Serial.printf("manque nom du fichier\n");

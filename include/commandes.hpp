@@ -13,7 +13,7 @@
 #ifndef __COMMANDES__
     #define __COMMANDES__
 
-    #define NB_COMMANDES    16
+    #define NB_COMMANDES    17
 
     extern int aide(String commande);
     extern int cat(String commande);
@@ -31,6 +31,7 @@
     extern int set(String commande);
     extern int setDigitalPin(String Commande);
     extern int unset(String commande);
+    extern int hystory(String commande);
 
     // la liste des commandes et des fonctions assiciées 
     // est a renseigner dans le fichier commandes.cpp

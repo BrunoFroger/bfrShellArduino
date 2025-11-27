@@ -21,5 +21,6 @@
     #define ERREUR_MODE_OPEN_FILE           -7
     #define ERREUR_CREATION_FILE            -8
     #define ERREUR_VARIABLE_PROTEGEE        -9
+    #define ERREUR_COMMANDE_INCONNUE        -10
     
 #endif

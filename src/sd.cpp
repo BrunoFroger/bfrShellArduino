@@ -40,13 +40,21 @@ void setPwd(String dir){
 
 String getPath(String filename){
     String path;
-    if (filename.indexOf("/") > 0){
-        return filename;
+    // if (filename.indexOf("/") > 0){
+    //     return repertoire + "/" + filename;
+    // }
+    // if (repertoire.equals("/")){
+    //     return filename;
+    // }
+    if (filename.startsWith("/")){
+        path = filename;
+    } else {
+        path = repertoire + "/" + filename;
     }
-    if (repertoire.equals("/")){
-        return filename;
-    }
-    path = repertoire + "/" + filename;
+    // if (path.startsWith("/") == true ){
+    //     path = path.substring(1);
+    // }
+    // Serial.println("sd.cpp : getPath : input = " + filename + " / output = " + path);
     return path;
 }
 
@@ -92,15 +100,29 @@ File sdOpen(String filename, String mode){
             if (SD.exists(path)){
                 if (mode.equals("R")){
                     fic = SD.open(path, FILE_READ);
+                    if (!fic){
+                        Serial.println("ERREUR : impossible d'ouvrir le fichier en lecture " + path);
+                        return fic;
+                    }
                 } else if (mode.equals("W")){
                     fic = SD.open(path, FILE_WRITE);
-                } else {
-                    return fic;
+                    if (!fic){
+                        Serial.println("ERREUR : impossible d'ouvrir le fichier en ecriture " + path);
+                        return fic;
+                    }
                 }
-                tblPipe[i].filename=path;
-                tblPipe[i].fic=&fic;
-                return fic;
+            } else {
+                if (mode.equals("W")){
+                    fic = SD.open(path, FILE_WRITE);
+                    if (!fic){
+                        Serial.println("ERREUR : impossible d'ouvrir le fichier en ecriture " + path);
+                        return fic;
+                    }
+                }
             }
+            tblPipe[i].filename=path;
+            tblPipe[i].fic=&fic;
+            return fic;
         }
     }
     return fic;
@@ -146,6 +168,7 @@ File sdOpenRead(String filename){
 
 File sdOpenWrite(String filename){
     String path = getPath(filename);
+    // Serial.println("sd.cpp : sdOpenWrite : tentative ouverture en W de " + path );
     return sdOpen(path, "W");
 }
 

@@ -25,5 +25,6 @@
     extern int sdRmdir(String);
     extern int fileExist(String);
     extern String getPwd(void);
+    extern String getPath(String);
     extern void setPwd(String);
 #endif

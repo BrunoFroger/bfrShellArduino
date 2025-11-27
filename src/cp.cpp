@@ -30,6 +30,8 @@ int cp(String commande){
     if (isSdAvailable()){
         String fichierSource, fichierDest;
         File ficSource, ficDest;
+        // fichierSource = getPath(cdeTbl[1]);
+        // fichierDest = getPath(cdeTbl[2]);
         fichierSource = cdeTbl[1];
         fichierDest = cdeTbl[2];
         // Serial.println("filename = " + filename);
@@ -45,13 +47,17 @@ int cp(String commande){
                         returnValue = ERREUR_FILE_EXIST;
                     } else {
                         ficDest = sdOpenWrite(fichierDest);
-                        // if(!ficdest)
-                        //  TODO
+                        if(! ficDest){
+                            Serial.println("ERREUR : impossible de créer le fichier destination " + fichierDest);
+                            returnValue=ERREUR_FILE_NOT_FOUND;
+                            return returnValue;
+                        }
                     }
                 }
                 if (ficSource.isDirectory()){
                     Serial.println(fichierSource + " est un repertoire");
                     returnValue=ERREUR_FILE_NOT_FOUND;
+                    return returnValue;
                 }
                 while (ficSource.available()){
                     // Serial.write(ficSource.read());

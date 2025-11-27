@@ -59,12 +59,13 @@ int analyseCommande(String commande){
         for (i=0 ; i < NB_COMMANDES ; i++){
             if (cdeTbl[0] == listeCommandes[i]){
                 returnValue=(*functptr[i])(commande);
-                // Serial.println("Fin de la cde : " + cdeTbl[0]);
+                // Serial.println("Fin de la cde : " + cdeTbl[0] + " ; res = " + String(returnValue));
                 break;
             }
         }
         if (i >= NB_COMMANDES) {
             Serial.println("commande inconnue : " + commande);
+            returnValue = ERREUR_COMMANDE_INCONNUE;
         }
     }
 

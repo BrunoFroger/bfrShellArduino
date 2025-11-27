@@ -20,7 +20,11 @@
 //          - relancer le build 
 //      - mettre a jour la variable nb_commandes
 
-const String listeCommandes[]={"aide", "cat", "cd", "cp", "env", "getAnalogPin", 
-            "getDigitalPin", "grep", "ls", "mkdir", "pwd", "rm", "rmdir", "set", "setDigitalPin", "unset"};
-int (*functptr[])(String) = { aide, cat, cd, cp, env, getAnalogPin, 
-            getDigitalPin, grep, ls, mkdir, pwd, rm, rmdir, set, setDigitalPin, unset } ;
+const String listeCommandes[]={"aide", "cat", "cd", "cp", "env", "getAnalogPin", "getDigitalPin", "grep", 
+            "history", "ls", "mkdir", "pwd", "rm", "rmdir", "set", "setDigitalPin", "unset"};
+int (*functptr[])(String) = { aide, cat, cd, cp, env, getAnalogPin, getDigitalPin, grep, 
+            hystory, ls, mkdir, pwd, rm, rmdir, set, setDigitalPin, unset } ;
+
+// cdes a prevoir : 
+//  - gestion historique de commandes avec fleches haut et bas
+//  - gestion completion des commandes avec tab

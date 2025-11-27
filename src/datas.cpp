@@ -8,7 +8,7 @@
 
 #include "datas.hpp"
 
-String base_prompt = "bfrShell > ";
+String base_prompt = "SD_Shell : ";
 String prompt = base_prompt;
 
 String listeVariablesEnv[NB_VARIABLES_ENV];

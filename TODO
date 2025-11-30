@@ -1,0 +1,16 @@
+Liste des taches/corrections a réaliser
+
+- travail en cours
+
+- commandes a realiser :
+    - mv
+    - more
+
+- fonctionnalites a mettre en oeuvre
+    - gerer les pipes pour enchainement de commandes '|' ex ls | grep index
+    - gerer redirection entrees/sorties '<' et '>'
+    - ajouter option recursivite sur commande ls
+    - gestion '*' et '?' dans designation des noms de fichiers
+
+- Bugs a corriger
+    - mettre a jour variable env pwd quand on change de repertoire

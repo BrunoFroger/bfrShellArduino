@@ -37,7 +37,6 @@ void setup() {
   sdInit();
   prompt = base_prompt + getPwd() + " > ";
 
-  Serial.println("BFR Shell\n");
 
   Serial.println("+-------------------------------+");
   Serial.println("+                               +");
@@ -67,7 +66,7 @@ void loop() {
       if (carlu == '\n'){
         Serial.print(carlu); // puis on le renvoi à l’expéditeur tel quel
         // Serial.read(); // on vide le buffer d'entree cr-lf
-        // Serial.println("main : saisie = " + saisie);
+        Serial.println("main : saisie = " + saisie);
         int res = analyseCommande(saisie);
         // Serial.println("resultat commande : " + String(res));
         if (!saisie.equals("history") && (res == NO_ERREUR)) storeHistorique(saisie);
@@ -92,9 +91,9 @@ void loop() {
             Serial.println();
             Serial.print(prompt + saisie);
             break;
-          case 0x1b:  //ESC (touches de fonction)
+          case 0x1b:  // ESC (touches de fonction)
             carlu = Serial.read(); // on lit le caractère
-            if (carlu == '['){
+            if (carlu == '['){  // c'est une touche spéciale
               carlu = Serial.read(); // on lit le caractère
               switch(carlu){
                 case 'A' :

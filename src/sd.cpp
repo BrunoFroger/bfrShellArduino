@@ -70,7 +70,8 @@ int sdInit(void){
         sdOk=0; 
     } else {
         Serial.println("Carte SD initialisée.");
-        analyseCommande("set pwd " + repertoire);
+        // analyseCommande("set pwd " + repertoire);
+        set("pwd " + repertoire);
         sdOk=1;
     }
     return sdOk;

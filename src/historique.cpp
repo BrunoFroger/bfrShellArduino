@@ -20,14 +20,16 @@ int nb_cde = 0;
 String getHistoriqueUp(void){
     // String result="";
     indexHistorique--;
-    if (index <= 0) indexHistorique = 0;
+    if (indexHistorique <= 0) indexHistorique = 0;
+    // Serial.println("getHistoriqueUp : " + String(indexHistorique));
     return cdeHistorique[indexHistorique];
 }
 String getHistoriqueDown(void){
     // String result="";
     indexHistorique++;
-    if (indexHistorique >= nb_cde) indexHistorique = nb_cde -1;
-    if (indexHistorique >= HISTORY_SIZE) indexHistorique = HISTORY_SIZE -1;
+    if (indexHistorique >= nb_cde) indexHistorique = nb_cde;
+    if (indexHistorique >= HISTORY_SIZE) indexHistorique = HISTORY_SIZE - 1;
+    // Serial.println("getHistoriqueDown : " + String(indexHistorique));
     return cdeHistorique[indexHistorique];
 }
 

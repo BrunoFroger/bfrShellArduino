@@ -1,6 +1,6 @@
 //---------------------------------------------------
 //
-//      commandes.cpp
+//      sd.cpp
 //
 //      (c) B. Froger 2025
 //
@@ -70,8 +70,10 @@ int sdInit(void){
         sdOk=0; 
     } else {
         Serial.println("Carte SD initialisée.");
-        // analyseCommande("set pwd " + repertoire);
-        set("pwd " + repertoire);
+        String commande = "set pwd \"" + repertoire + "\"";
+        analyseCommande(commande);
+        commande = "env";
+        analyseCommande(commande);
         sdOk=1;
     }
     return sdOk;
@@ -159,6 +161,8 @@ File sdOpenDir(String filename){
         repertoire = repertoire + "/" + filename;
     }
     // Serial.println("sdOpenDir : nvx repertoire : " + repertoire);
+    
+    analyseCommande("set pwd \"" + repertoire + "\"");
     return SD.open(repertoire);
 }
 

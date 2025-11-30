@@ -34,6 +34,7 @@ int cd(String commande){
         if (! dir.isDirectory()){
             sdOpenDir(homeDir);
             Serial.println("ERREUR : " + cdeTbl[1] + " n'est pas un repertoire");
+            returnValue=ERREUR_FILE_NOT_FOUND;
         }
     } else {
         Serial.println("Carte SD non disponible");

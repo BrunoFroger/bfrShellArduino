@@ -17,7 +17,7 @@
 
 void setAide(void){
     Serial.println("Commande set :");
-    Serial.println("fonction : cree ou modifie une variable d'environnement (chaine de caracteres uniquement)");
+    Serial.println("fonction : cree ou modifie une variable d'environnement (valeur doit etre une chaine de caracteres uniquement)");
     Serial.println("usage    : set <nom_variable> <valeur> ");
 }
 

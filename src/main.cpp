@@ -66,7 +66,7 @@ void loop() {
       if (carlu == '\n'){
         Serial.print(carlu); // puis on le renvoi à l’expéditeur tel quel
         // Serial.read(); // on vide le buffer d'entree cr-lf
-        Serial.println("main : saisie = " + saisie);
+        // Serial.println("main : saisie = " + saisie);
         int res = analyseCommande(saisie);
         // Serial.println("resultat commande : " + String(res));
         if (!saisie.equals("history") && (res == NO_ERREUR)) storeHistorique(saisie);

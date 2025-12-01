@@ -2,6 +2,9 @@ Liste des taches/corrections a réaliser
 
 - travail en cours
     - gerer les pipes pour enchainement de commandes '|' ex ls | grep index
+        - decomposition des commandes : OK
+        - creation des flux in et out : NOK
+        - 
 
 - commandes a realiser :
     - mv

@@ -13,11 +13,12 @@
 #include "erreurs.hpp"
 #include "commandes.hpp"
 #include "sd.hpp"
+#include "gestionFlux.hpp"
 
 void grepAide(void){
-    Serial.println("Commande grep :");
-    Serial.println("fonction : affiche la ligne si le terme pattern est inclu dans un fichier (chaines de caracteres uniquement)");
-    Serial.println("usage    : grep <pattern> <nom fichier> ");
+    fluxWriteln("fluxout", "Commande grep :");
+    fluxWriteln("fluxout", "fonction : affiche la ligne si le terme pattern est inclu dans un fichier (chaines de caracteres uniquement)");
+    fluxWriteln("fluxout", "usage    : grep <pattern> <nom fichier> ");
 }
 
 int grep(String commande){
@@ -29,7 +30,7 @@ int grep(String commande){
     String pattern = cdeTbl[1];
     String input = cdeTbl[2];
     if ((pattern.length() == 0) || (input.length() == 0)){
-        Serial.println("grep : manque parametres");
+        fluxWriteln("fluxerr", "grep : manque parametres");
         grepAide();
         return ERREUR_PARAMETRES;
     }
@@ -38,7 +39,7 @@ int grep(String commande){
     if (fileExist(input) == 1){
         fichier = sdOpenRead(input);
     } else {
-        Serial.println("Erreur : le fichier <" + input + "> n'existe pas");
+        fluxWriteln("fluxerr", "le fichier <" + input + "> n'existe pas");
         return ERREUR_FILE_NOT_FOUND;
     }
     String result;
@@ -49,7 +50,7 @@ int grep(String commande){
     char pattern_array[pattern_len];
     pattern.toCharArray(pattern_array, pattern_len);
     // if (strstr(input_array, pattern_array) != 0) {
-    //     Serial.println(pattern);
+         // Serial.println(pattern);
     // }
     int numLigne = 1;
     while (fichier.available()){
@@ -63,7 +64,7 @@ int grep(String commande){
         // char ligne_array[input.length()];
         // ligne.toCharArray(ligne_array, ligne_len);
         if (strstr(ligne, pattern_array) > 0){
-            Serial.println("ligne " + String(numLigne) + " : " + ligne);
+            fluxWriteln("fluxout", "ligne " + String(numLigne) + " : " + ligne);
         }
         numLigne++;
     }

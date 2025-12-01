@@ -13,11 +13,12 @@
 #include "analyseCommande.hpp"
 #include "erreurs.hpp"
 #include "sd.hpp"
+#include "gestionFlux.hpp"
 
 void rmdirAide(void){
-    Serial.println("Commande rm :");
-    Serial.println("fonction : supprime un fichier");
-    Serial.println("usage    : rm <nom du fichier>");
+    fluxWriteln("fluxout", "Commande rm :");
+    fluxWriteln("fluxout", "fonction : supprime un fichier");
+    fluxWriteln("fluxout", "usage    : rm <nom du fichier>");
 }
 
 int rmdir(String commande){
@@ -36,11 +37,11 @@ int rmdir(String commande){
                 sdRmdir(filename);
             }
         } else {
-            Serial.printf("manque nom du fichier\n");
+            fluxWriteln("fluxerr", "manque nom du fichier\n");
             returnValue=ERREUR_FILE_NOT_FOUND;
         }
     } else {
-        Serial.println("Carte SD non disponible");
+        fluxWriteln("fluxerr", "Carte SD non disponible");
         returnValue=ERREUR_SD_CARD_NON_DISPONIBLE;
     }
     return returnValue;

@@ -12,6 +12,7 @@
 
 #include "erreurs.hpp"
 #include "commandes.hpp"
+#include "gestionFlux.hpp"
 
 #define NB_PIPES    10
 
@@ -40,36 +41,26 @@ void setPwd(String dir){
 
 String getPath(String filename){
     String path;
-    // if (filename.indexOf("/") > 0){
-    //     return repertoire + "/" + filename;
-    // }
-    // if (repertoire.equals("/")){
-    //     return filename;
-    // }
     if (filename.startsWith("/")){
         path = filename;
     } else {
         path = repertoire + "/" + filename;
     }
-    // if (path.startsWith("/") == true ){
-    //     path = path.substring(1);
-    // }
-    // Serial.println("sd.cpp : getPath : input = " + filename + " / output = " + path);
     return path;
 }
 
 int sdInit(void){
-    Serial.println("Initialisation de la carte SD...");
+    fluxWriteln("fluxout", "Initialisation de la carte SD...");
 
     for (int i=0 ; i < NB_PIPES ; i++){
         tblPipe[i].filename = "";
         tblPipe[i].fic = nullptr;
     }
     if (!SD.begin(chipSelect)) {
-        Serial.println("Erreur d'initialisation de la carte SD");
+        fluxWriteln("fluxerr", "Erreur d'initialisation de la carte SD");
         sdOk=0; 
     } else {
-        Serial.println("Carte SD initialisée.");
+        fluxWriteln("fluxout", "Carte SD initialisée.");
         String commande = "set pwd \"" + repertoire + "\"";
         analyseCommande(commande);
         commande = "env";
@@ -82,7 +73,7 @@ int sdInit(void){
 int isSdAvailable(void){
     // Serial.println("fonction : isSdAvalaible = " + String(sdOk));
     if (! sdOk){
-        Serial.println("Erreur : SD Card non disponible !");
+        fluxWriteln("fluxerr", "SD Card non disponible !");
     }
     return sdOk;
 }
@@ -104,13 +95,13 @@ File sdOpen(String filename, String mode){
                 if (mode.equals("R")){
                     fic = SD.open(path, FILE_READ);
                     if (!fic){
-                        Serial.println("ERREUR : impossible d'ouvrir le fichier en lecture " + path);
+                        fluxWriteln("fluxerr", "impossible d'ouvrir le fichier en lecture " + path);
                         return fic;
                     }
                 } else if (mode.equals("W")){
                     fic = SD.open(path, FILE_WRITE);
                     if (!fic){
-                        Serial.println("ERREUR : impossible d'ouvrir le fichier en ecriture " + path);
+                        fluxWriteln("fluxerr", "impossible d'ouvrir le fichier en ecriture " + path);
                         return fic;
                     }
                 }
@@ -118,7 +109,7 @@ File sdOpen(String filename, String mode){
                 if (mode.equals("W")){
                     fic = SD.open(path, FILE_WRITE);
                     if (!fic){
-                        Serial.println("ERREUR : impossible d'ouvrir le fichier en ecriture " + path);
+                        fluxWriteln("fluxerr", "impossible d'ouvrir le fichier en ecriture " + path);
                         return fic;
                     }
                 }
@@ -182,10 +173,10 @@ int sdRemove(String filename){
     if (fileExist(path)){
         int res = SD.remove(path);
         if (res == 0){
-            Serial.println("ERREUR : Impossible d'effacer le fichier : " + path);
+            fluxWriteln("fluxerr", "Impossible d'effacer le fichier : " + path);
         }
     } else {
-        Serial.println("ERREUR : le fichier " + path + " n'existe pas");
+        fluxWriteln("fluxerr", "le fichier " + path + " n'existe pas");
         return ERREUR_FILE_NOT_FOUND;
     }
     return NO_ERREUR;
@@ -196,7 +187,7 @@ int sdRmdir(String filename){
     if (fileExist(filename)){
         return SD.rmdir(filename);
     } else {
-        Serial.println("ERREUR : le repertoire " + filename + " n'existe pas");
+        fluxWriteln("fluxerr", "le repertoire " + filename + " n'existe pas");
         return ERREUR_FILE_NOT_FOUND;
     }
     return NO_ERREUR;
@@ -208,13 +199,13 @@ int sdMkdir(String filename){
     if (! fileExist(path)){
         int res = SD.mkdir(path);
         if (res == 0){
-            Serial.println("ERREUR : impossible de creer le repertoire " + path);
+            fluxWriteln("fluxerr", "impossible de creer le repertoire " + path);
             result = ERREUR_CREATION_FILE;
         } else {
             result = NO_ERREUR;
         }
     } else {
-        Serial.println("ERREUR : le repertoire " + path + " existe déjà");
+        fluxWriteln("fluxerr", "le repertoire " + path + " existe déjà");
         result = ERREUR_FILE_EXIST;
     }
     return result;

@@ -14,11 +14,12 @@
 #include "commandes.hpp"
 #include "sd.hpp"
 #include "datas.hpp"
+#include "gestionFlux.hpp"
 
 void unsetAide(void){
-    Serial.println("Commande unset :");
-    Serial.println("fonction : supprime une variable d'environnement");
-    Serial.println("usage    : unset <nom_variable>");
+    fluxWriteln("fluxout", "Commande unset :");
+    fluxWriteln("fluxout", "fonction : supprime une variable d'environnement");
+    fluxWriteln("fluxout", "usage    : unset <nom_variable>");
 }
 
 int unset(String commande){
@@ -31,7 +32,7 @@ int unset(String commande){
     // test si la variable est protegee
     if (variable.equals("pwd")) returnValue = ERREUR_VARIABLE_PROTEGEE;
     if (returnValue == ERREUR_VARIABLE_PROTEGEE){
-        Serial.println("Impossible de supprimer une variable protégée");
+        fluxWriteln("fluxerr", "Impossible de supprimer une variable protégée");
         return returnValue;
     }
     int i;
@@ -45,7 +46,7 @@ int unset(String commande){
     }
 
     if (i >= NB_VARIABLES_ENV){
-        Serial.println("Erreur : la variable " + variable + " n'existe pas");
+        fluxWriteln("fluxerr", "la variable " + variable + " n'existe pas");
         returnValue = ERREUR_SYSTEM;
     }
     return returnValue;

@@ -14,11 +14,12 @@
 #include "commandes.hpp"
 #include "sd.hpp"
 #include "datas.hpp"
+#include "gestionFlux.hpp"
 
 void envAide(void){
-    Serial.println("Commande env :");
-    Serial.println("fonction : affiche les variables d'environnement");
-    Serial.println("usage    : env ");
+    fluxWriteln("fluxout", "Commande env :");
+    fluxWriteln("fluxout", "fonction : affiche les variables d'environnement");
+    fluxWriteln("fluxout", "usage    : env ");
 }
 
 int env(String commande){
@@ -29,7 +30,7 @@ int env(String commande){
     } 
     for (int i = 0 ; i < NB_VARIABLES_ENV ; i++){
         if (!listeVariablesEnv[i].isEmpty()){
-            Serial.println(listeVariablesEnv[i] + " = " + valeurVariablesEnv[i]);
+            fluxWriteln("fluxout", listeVariablesEnv[i] + " = " + valeurVariablesEnv[i]);
         }
     }
     return returnValue;

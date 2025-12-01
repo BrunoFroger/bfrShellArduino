@@ -14,11 +14,12 @@
 #include "commandes.hpp"
 #include "sd.hpp"
 #include "datas.hpp"
+#include "gestionFlux.hpp"
 
 void setAide(void){
-    Serial.println("Commande set :");
-    Serial.println("fonction : cree ou modifie une variable d'environnement (valeur doit etre une chaine de caracteres uniquement)");
-    Serial.println("usage    : set <nom_variable> <valeur> ");
+    fluxWriteln("fluxout", "Commande set :");
+    fluxWriteln("fluxout", "fonction : cree ou modifie une variable d'environnement (valeur doit etre une chaine de caracteres uniquement)");
+    fluxWriteln("fluxout", "usage    : set <nom_variable> <valeur> ");
 }
 
 int set(String commande){
@@ -30,7 +31,7 @@ int set(String commande){
     String variable = cdeTbl[1];
     String valeur = cdeTbl[2];
     if ((variable.length() == 0) || (valeur.length() == 0)){
-        Serial.println ("Erreur : pas assez de parametres !");
+        fluxWriteln("fluxerr", "pas assez de parametres !");
         setAide();
         returnValue = ERREUR_PARAMETRES;
     } else {
@@ -56,7 +57,7 @@ int set(String commande){
                 }
             }
             if (i >= NB_VARIABLES_ENV){
-                Serial.println("Erreur : table de variable d'environnement pleine");
+                fluxWriteln("fluxerr", "table de variable d'environnement pleine");
                 returnValue = ERREUR_SYSTEM;
             }
         }

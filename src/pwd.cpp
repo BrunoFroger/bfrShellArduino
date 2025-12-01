@@ -13,11 +13,12 @@
 #include "erreurs.hpp"
 #include "commandes.hpp"
 #include "sd.hpp"
+#include "gestionFlux.hpp"
 
 void pwdAide(void){
-    Serial.println("Commande pwd :");
-    Serial.println("fonction : affiche le nom du repertoire courant sur carte SD");
-    Serial.println("usage    : pwd ");
+    fluxWriteln("fluxout", "Commande pwd :");
+    fluxWriteln("fluxout", "fonction : affiche le nom du repertoire courant sur carte SD");
+    fluxWriteln("fluxout", "usage    : pwd ");
 }
 
 int pwd(String commande){
@@ -26,6 +27,6 @@ int pwd(String commande){
         pwdAide();
         return returnValue;
     } 
-    Serial.println(getPwd());
+    fluxWriteln("fluxout", getPwd());
     return returnValue;
 }

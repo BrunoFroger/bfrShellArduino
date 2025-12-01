@@ -13,12 +13,13 @@
 #include "analyseCommande.hpp"
 #include "erreurs.hpp"
 #include "historique.hpp"
+#include "gestionFlux.hpp"
 
 
 void hystoryAide(void){
-    Serial.println("Commande cp :");
-    Serial.println("fonction : copie le contenu d'un fichier dans un autre fichier");
-    Serial.println("usage    : cp <fichier source> <fichier destination>");
+    fluxWriteln("fluxout", "Commande cp :");
+    fluxWriteln("fluxout", "fonction : copie le contenu d'un fichier dans un autre fichier");
+    fluxWriteln("fluxout", "usage    : cp <fichier source> <fichier destination>");
 }
 
 

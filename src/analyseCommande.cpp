@@ -14,7 +14,7 @@
 #include "erreurs.hpp"
 #include "commandes.hpp"
 #include "analyseCommande.hpp"
-
+#include "gestionFlux.hpp"
 
 String cdeTbl[NB_PARAM];
 String listeCdes[NB_PARAM];
@@ -41,7 +41,7 @@ void decomposeCommande(String data, char separateur, String listeDatas[]){
 
     // Afficher les tokens
     // for (int i = 0; i < tokenCount; i++) {
-    //     Serial.println(cdeTbl[i]);
+        // Serial.println(cdeTbl[i]);
     // }
 }
 
@@ -66,7 +66,7 @@ int executeCommande(String commande){
             }
         }
         if (i >= NB_COMMANDES) {
-            Serial.println("commande inconnue : " + commande);
+            fluxWriteln("fluxerr", "commande inconnue : " + commande);
             returnValue = ERREUR_COMMANDE_INCONNUE;
         }
     }

@@ -11,28 +11,31 @@
 #include <string.h>
 
 #include "erreurs.hpp"
+#include "gestionFlux.hpp"
+#include "datas.hpp"
+#include "commandes.hpp"
 
 
 void getAnalogPinAide(void){
-    Serial.println("Commande getAnalogPin :");
-    Serial.println("fonction : affiche la valeur d'une entrée analogique");
-    Serial.println("usage    : getAnalogPin <pin number>");
+    fluxWriteln("fluxout", "Commande getAnalogPin :");
+    fluxWriteln("fluxout", "fonction : affiche la valeur d'une entrée analogique");
+    fluxWriteln("fluxout", "usage    : getAnalogPin <pin number>");
 }
 
 int getAnalogPin(String commande){
-    int returnValue = NO_ERREUR;
+    // int returnValue = -1;
     if (commande.equals("aide")){
         getAnalogPinAide();
-        return returnValue;
+        return 0;
     }
-    Serial.println("a developper");
-    return returnValue;
+    // TODO A valider
+    return analogRead(cdeTbl[1].toInt());
 }
 
 void getDigitalPinAide(void){
-    Serial.println("Commande getDigitalPin :");
-    Serial.println("fonction : affiche la valeur d'une entrée digitale");
-    Serial.println("usage    : getDigitalPin <pin number>");
+    fluxWriteln("fluxout", "Commande getDigitalPin :");
+    fluxWriteln("fluxout", "fonction : affiche la valeur d'une entrée digitale");
+    fluxWriteln("fluxout", "usage    : getDigitalPin <pin number>");
 }
 
 int getDigitalPin(String commande){
@@ -41,14 +44,14 @@ int getDigitalPin(String commande){
         getDigitalPinAide();
         return returnValue;
     }
-    Serial.println("a developper");
-    return returnValue;
+    // TODO A valider
+    return digitalRead(cdeTbl[1].toInt());
 }
 
 void setDigitalPinAide(void){
-    Serial.println("Commande setDigitalPin :");
-    Serial.println("fonction : modifie la valeur d'une sortie digitale");
-    Serial.println("usage    : setDigitalPin <pin number> <valeur>");
+    fluxWriteln("fluxout", "Commande setDigitalPin :");
+    fluxWriteln("fluxout", "fonction : modifie la valeur d'une sortie digitale");
+    fluxWriteln("fluxout", "usage    : setDigitalPin <pin number> <valeur>");
 }
 
 int setDigitalPin(String commande){
@@ -57,6 +60,7 @@ int setDigitalPin(String commande){
         setDigitalPinAide();
         return returnValue;
     }
-    Serial.println("a developper");
+    // TODO A valider
+    digitalWrite(cdeTbl[1].toInt(), cdeTbl[2].toInt());
     return returnValue;
 }

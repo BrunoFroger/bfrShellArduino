@@ -13,11 +13,12 @@
 #include "analyseCommande.hpp"
 #include "erreurs.hpp"
 #include "sd.hpp"
+#include "gestionFlux.hpp"
 
 void mkdirAide(void){
-    Serial.println("Commande mkdir :");
-    Serial.println("fonction : cré un répertoire");
-    Serial.println("usage    : mkdir <nom du répertoire>");
+    fluxWriteln("fluxout", "Commande mkdir :");
+    fluxWriteln("fluxout", "fonction : cré un répertoire");
+    fluxWriteln("fluxout", "usage    : mkdir <nom du répertoire>");
 }
 
 int mkdir(String commande){
@@ -27,7 +28,7 @@ int mkdir(String commande){
         return returnValue;
     } 
     if (isSdAvailable()){
-        Serial.println("mkdir");
+        // Serial.println("mkdir");
         String filename;
         File fic;
         filename = cdeTbl[1];
@@ -36,19 +37,19 @@ int mkdir(String commande){
             if (! fileExist(filename)){
                 int res = sdMkdir(filename);
                 if (res != NO_ERREUR){
-                    Serial.println("ERREUR : le repertoire " + filename + " n'a pas ete crée");
+                    fluxWriteln("fluxerr", "le repertoire " + filename + " n'a pas ete crée");
                     returnValue = ERREUR_CREATION_FILE;
                 }
             } else {
-                Serial.println("ERREUR : Le repertoire " + filename + " existe deja");
+                fluxWriteln("fluxerr", "Le repertoire " + filename + " existe deja");
                 returnValue = ERREUR_CREATION_FILE;
             }
         } else {
-            Serial.printf("ERREUR : manque nom du fichier\n");
+            fluxWriteln("fluxerr", "manque nom du fichier\n");
             returnValue=ERREUR_FILE_NOT_FOUND;
         }
     } else {
-        Serial.println("ERREUR : Carte SD non disponible");
+        fluxWriteln("fluxerr", "Carte SD non disponible");
         returnValue=ERREUR_SD_CARD_NON_DISPONIBLE;
     }
     return returnValue;

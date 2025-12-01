@@ -12,6 +12,7 @@
 
 #include "erreurs.hpp"
 #include "commandes.hpp"
+#include "gestionFlux.hpp"
 
 int aide(String commande){
     char buffer[255];
@@ -19,20 +20,20 @@ int aide(String commande){
     int returnValue=NO_ERREUR;
     int cpt = 0;
     if (cdeTbl[1].length() == 0){
-        Serial.println("Liste des commandes disponibles : ");
+        fluxWriteln("fluxout", "Liste des commandes disponibles : ");
         for (int i=0 ; i < NB_COMMANDES ; i++){
             listeCommandes[i].toCharArray(buffer1,255);
             sprintf(buffer, "%15s", buffer1);
-            Serial.print(buffer);
+            fluxWrite("fluxout", buffer);
             if (cpt++ >= 4) {
-                Serial.println();
+                fluxWriteln("fluxout", "");
                 cpt = 0;
             }
         }
-        Serial.println();
-        Serial.println("Pour l'aide d'une commande spécifique tapez : aide <commnde>");
+        fluxWriteln("fluxout", "");
+        fluxWriteln("fluxout", "Pour l'aide d'une commande spécifique tapez : aide <commnde>");
     } else {
-        Serial.println("aide de la fonction " + cdeTbl[1]);
+        fluxWriteln("fluxout", "aide de la fonction " + cdeTbl[1]);
         for (int i = 0 ; i < NB_COMMANDES ; i++){
             if (cdeTbl[1].equals(listeCommandes[i])){
                 returnValue=(*functptr[i])("aide");

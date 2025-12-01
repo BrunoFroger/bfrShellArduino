@@ -13,11 +13,12 @@
 #include "analyseCommande.hpp"
 #include "erreurs.hpp"
 #include "sd.hpp"
+#include "gestionFlux.hpp"
 
 void cpAide(void){
-    Serial.println("Commande cp :");
-    Serial.println("fonction : copie le contenu d'un fichier dans un autre fichier");
-    Serial.println("usage    : cp <fichier source> <fichier destination>");
+    fluxWriteln("fluxout", "Commande cp :");
+    fluxWriteln("fluxout", "fonction : copie le contenu d'un fichier dans un autre fichier");
+    fluxWriteln("fluxout", "usage    : cp <fichier source> <fichier destination>");
 }
 
 int cp(String commande){
@@ -38,24 +39,24 @@ int cp(String commande){
         if (fichierSource.length() > 0){
             ficSource = sdOpenRead(fichierSource);
             if (!ficSource){
-                Serial.println("ERREUR : fichier " + fichierSource + " non trouvé");
+                fluxWriteln("fluxerr", "fichier " + fichierSource + " non trouvé");
                 returnValue=ERREUR_FILE_NOT_FOUND;
             } else {
                 if (fichierDest.length() > 0){
                     if (fileExist(fichierDest)){
-                        Serial.println("ERREUR : le fichier destination (" + fichierDest + ") existe deja");
+                        fluxWriteln("fluxerr", "le fichier destination (" + fichierDest + ") existe deja");
                         returnValue = ERREUR_FILE_EXIST;
                     } else {
                         ficDest = sdOpenWrite(fichierDest);
                         if(! ficDest){
-                            Serial.println("ERREUR : impossible de créer le fichier destination " + fichierDest);
+                            fluxWriteln("fluxerr", "impossible de créer le fichier destination " + fichierDest);
                             returnValue=ERREUR_FILE_NOT_FOUND;
                             return returnValue;
                         }
                     }
                 }
                 if (ficSource.isDirectory()){
-                    Serial.println(fichierSource + " est un repertoire");
+                    fluxWriteln("fluxerr", fichierSource + " est un repertoire");
                     returnValue=ERREUR_FILE_NOT_FOUND;
                     return returnValue;
                 }
@@ -67,11 +68,11 @@ int cp(String commande){
                 ficDest.close();
             }
         } else {
-            Serial.printf("manque nom du fichier\n");
+            fluxWriteln("fluxerr", "manque nom du fichier\n");
             returnValue=ERREUR_FILE_NOT_FOUND;
         }
     } else {
-        Serial.println("Carte SD non disponible");
+        fluxWriteln("fluxerr", "Carte SD non disponible");
         returnValue=ERREUR_SD_CARD_NON_DISPONIBLE;
     }
     return returnValue;

@@ -13,11 +13,12 @@
 #include "erreurs.hpp"
 #include "commandes.hpp"
 #include "sd.hpp"
+#include "gestionFlux.hpp"
 
 void lsAide(void){
-    Serial.println("Commande ls :");
-    Serial.println("fonction : affiche le contenu du repertoire courant sur carte SD");
-    Serial.println("usage    : ls ");
+    fluxWriteln("fluxout", "Commande ls :");
+    fluxWriteln("fluxout", "fonction : affiche le contenu du repertoire courant sur carte SD");
+    fluxWriteln("fluxout", "usage    : ls ");
 }
 
 int ls(String commande){
@@ -39,7 +40,7 @@ int ls(String commande){
         String homeDir = getPwd();
         directory = sdOpenDir(dir);
         if (!directory.isDirectory()) {
-            Serial.println("ls : " + dir + " n'est pas un répertoire");
+            fluxWriteln("fluxerr", "ls : " + dir + " n'est pas un répertoire");
             return ERREUR_FILE_NOT_FOUND;
         }
         File entry = directory.openNextFile();
@@ -51,22 +52,24 @@ int ls(String commande){
             // // listFiles(entry.name()); // Appel récursif pour les sous-dossiers
             // } else {
             // Serial.print("Fichier : ");
-            Serial.printf("%-25s", entry.name());
+            char buffer[50];
+            sprintf(buffer, "%-25s", entry.name());
+            fluxWrite("fluxout", String(buffer));
             // Serial.printf("<%s>", entry.name());
             if (cpt++ > 3) {
-                Serial.println();
+                fluxWriteln("fluxout", "");
                 cpt = 0;
             }
             // }
             entry.close();
             entry = directory.openNextFile();
         }
-        Serial.println();
+        fluxWriteln("fluxout", "");
         directory.close();
         sdOpenDir(homeDir);
 
     } else {
-        Serial.println("Sd card non disponible");
+        fluxWriteln("fluxerr", "Sd card non disponible");
         return ERREUR_SD_CARD_NON_DISPONIBLE;
     }
     return returnValue;

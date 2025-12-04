@@ -6,6 +6,9 @@ Liste des taches/corections a réaliser
         - creation des flux in et out : mis en place a valiser
         - 
 
+- travaux a valider :
+    - gestion completion des commandes avec touche "tab"
+
 - commandes a realiser :
     - mv
     - more
@@ -16,6 +19,5 @@ Liste des taches/corections a réaliser
     - gerer redirection entrees/sorties '<' et '>'
     - ajouter option recursivite sur commande ls
     - gestion '*' et '?' dans designation des noms de fichiers
-    - gestion completion des commandes avec touche "tab"
 
 - Bugs a corriger

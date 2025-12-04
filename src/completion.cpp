@@ -32,7 +32,7 @@ String completion(struct_cde_flux flux, String saisie){
         return listeCompletion;
     }
     if (listeCompletion.length() > 0){
-        fluxWrite(flux.fluxout, "\n" + listeCompletion + "\n");
+        fluxWrite(flux.fluxout, "\n" + listeCompletiona);
         return saisie;
     }
     // Serial.println("aucune completion trouvee");

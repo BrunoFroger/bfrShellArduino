@@ -1,14 +1,16 @@
-Liste des taches/corrections a réaliser
+Liste des taches/corections a réaliser
 
 - travail en cours
     - gerer les pipes pour enchainement de commandes '|' ex ls | grep index
         - decomposition des commandes : OK
-        - creation des flux in et out : NOK
+        - creation des flux in et out : mis en place a valiser
         - 
 
 - commandes a realiser :
     - mv
     - more
+    - cut
+    - echo $variable
 
 - fonctionnalites a mettre en oeuvre
     - gerer redirection entrees/sorties '<' et '>'

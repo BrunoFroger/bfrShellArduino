@@ -13,6 +13,7 @@
 #include "erreurs.hpp"
 #include "gestionFlux.hpp"
 #include "commandes.hpp"
+#include "completion.hpp"
 
 String saisie;
 
@@ -81,11 +82,18 @@ void loop() {
         fluxWrite("fluxout", String(carlu)); // puis on le renvoi à l’expéditeur tel quel
       } else {
         int pos;
+        String tmp;
         switch (carlu)
         {
           case 0x08:  //BS backspace
             pos=saisie.length()-1;
             saisie=saisie.substring(0,pos);
+            fluxWriteln("fluxout", "");
+            fluxWrite("fluxout", prompt + saisie);
+            break;
+          case 0x09:  //HT tabulation (completion de commande)
+            tmp = completion(main_cde_flux, saisie);
+            if (!tmp.equals("")) saisie = tmp;
             fluxWriteln("fluxout", "");
             fluxWrite("fluxout", prompt + saisie);
             break;

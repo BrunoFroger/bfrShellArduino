@@ -14,6 +14,7 @@
 #include "commandes.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void lsAide(void){
     fluxWriteln("fluxout", "Commande ls :");
@@ -21,10 +22,10 @@ void lsAide(void){
     fluxWriteln("fluxout", "usage    : ls ");
 }
 
-int ls(String commande){
+int ls(struct_cde_data data){
     int returnValue = NO_ERREUR;
     File directory;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         lsAide();
         return returnValue;
     } 

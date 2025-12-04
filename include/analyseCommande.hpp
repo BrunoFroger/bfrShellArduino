@@ -8,15 +8,14 @@
 
 #include <Arduino.h>
 
+#include "commandes.hpp"
+
 #ifndef __ANALYSE_COMMANDE__
     #define __ANALYSE_COMMANDE__
 
-    #define NB_PARAM 10
     #define PARAM_SIZE  50
 
-    extern String cdeTbl[NB_PARAM];
-
-    int analyseCommande(String);
+    int analyseCommande(struct_cde_data);
     void decomposeCommande(String, char);
     
 #endif

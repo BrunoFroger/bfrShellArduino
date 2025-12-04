@@ -14,7 +14,7 @@
 #include "commandes.hpp"
 #include "gestionFlux.hpp"
 
-int aide(String commande){
+int aide(struct_cde_data data){
     char buffer[255];
     char buffer1[255];
     int returnValue=NO_ERREUR;
@@ -36,7 +36,8 @@ int aide(String commande){
         fluxWriteln("fluxout", "aide de la fonction " + cdeTbl[1]);
         for (int i = 0 ; i < NB_COMMANDES ; i++){
             if (cdeTbl[1].equals(listeCommandes[i])){
-                returnValue=(*functptr[i])("aide");
+                data.commande="aide";
+                returnValue=(*functptr[i])(data);
             }
         }
     }

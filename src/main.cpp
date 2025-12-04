@@ -12,6 +12,7 @@
 #include "historique.hpp"
 #include "erreurs.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 String saisie;
 
@@ -35,6 +36,10 @@ void setup() {
   sdInit();
   prompt = base_prompt + getPwd() + " > ";
 
+  main_cde_flux.fluxin="fluxin";
+  main_cde_flux.fluxout="fluxout";
+  main_cde_flux.fluxerr="fluxerr";
+  main_cde_data.cdeFlux = main_cde_flux;
 
   fluxWriteln("fluxout", "+-------------------------------+");
   fluxWriteln("fluxout", "+                               +");
@@ -63,7 +68,8 @@ void loop() {
       carlu = fluxRead("fluxin"); // on lit le caractère
       if (carlu == '\n'){
         fluxWrite("fluxout", String(carlu)); // puis on le renvoi à l’expéditeur tel quel
-        int res = analyseCommande(saisie);
+        main_cde_data.commande = saisie;
+        int res = analyseCommande(main_cde_data);
         if (!saisie.equals("history") && (res == NO_ERREUR)) storeHistorique(saisie);
         fluxFlush("fluxout");
         fluxWrite("fluxout", prompt);

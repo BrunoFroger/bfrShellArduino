@@ -14,6 +14,7 @@
 #include "erreurs.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void mkdirAide(void){
     fluxWriteln("fluxout", "Commande mkdir :");
@@ -21,9 +22,9 @@ void mkdirAide(void){
     fluxWriteln("fluxout", "usage    : mkdir <nom du répertoire>");
 }
 
-int mkdir(String commande){
+int mkdir(struct_cde_data data){
     int returnValue=NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         mkdirAide();
         return returnValue;
     } 

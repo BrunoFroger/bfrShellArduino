@@ -45,7 +45,7 @@ void decomposeCommande(String data, char separateur, String listeDatas[]){
     // }
 }
 
-int executeCommande(String commande){
+int executeCommande(struct_cde_data cde_data){
     int returnValue = NO_ERREUR;
     // String buffer;
     for (int i = 0 ; i < NB_PARAM ; i++){
@@ -55,18 +55,18 @@ int executeCommande(String commande){
     // Serial.println(buffer);
     // Serial.println("Analyse de la commande <" + commande + ">");
     // decomposeCommande(commande, '|', listeCdes);
-    decomposeCommande(commande, ' ', cdeTbl);
+    decomposeCommande(cde_data.commande, ' ', cdeTbl);
     int i;
     if (!cdeTbl[0].equals("")){
         for (i=0 ; i < NB_COMMANDES ; i++){
             if (cdeTbl[0] == listeCommandes[i]){
-                returnValue=(*functptr[i])(commande);
+                returnValue=(*functptr[i])(cde_data);
                 // Serial.println("Fin de la cde : " + cdeTbl[0] + " ; res = " + String(returnValue));
                 break;
             }
         }
         if (i >= NB_COMMANDES) {
-            fluxWriteln("fluxerr", "commande inconnue : " + commande);
+            fluxWriteln("fluxerr", "commande inconnue : " + cde_data.commande);
             returnValue = ERREUR_COMMANDE_INCONNUE;
         }
     }
@@ -74,9 +74,9 @@ int executeCommande(String commande){
     return returnValue;
 }
 
-int analyseCommande(String commande){
+int analyseCommande(struct_cde_data cde_data){
     // decomposition des commmandes en pipes
-    String commandesRestantes = commande;
+    String commandesRestantes = cde_data.commande;
     String commandeATraiter;
     boolean fin = false;
     int result = NO_ERREUR;
@@ -86,7 +86,8 @@ int analyseCommande(String commande){
         if (index == -1) fin = true;
         commandeATraiter = commandesRestantes.substring(0,index);
         // Serial.println("execution de la commande <" + commandeATraiter + ">");
-        result = executeCommande(commandeATraiter);
+        cde_data.commande = commandeATraiter;
+        result = executeCommande(cde_data);
         if (result != NO_ERREUR) return result;
         String newCommande = commandesRestantes.substring(index + 1);
         commandesRestantes = newCommande;

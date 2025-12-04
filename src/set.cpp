@@ -22,9 +22,9 @@ void setAide(void){
     fluxWriteln("fluxout", "usage    : set <nom_variable> <valeur> ");
 }
 
-int set(String commande){
+int set(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         setAide();
         return returnValue;
     } 

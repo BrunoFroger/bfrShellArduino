@@ -15,6 +15,7 @@
 #include "sd.hpp"
 #include "datas.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void envAide(void){
     fluxWriteln("fluxout", "Commande env :");
@@ -22,9 +23,9 @@ void envAide(void){
     fluxWriteln("fluxout", "usage    : env ");
 }
 
-int env(String commande){
+int env(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         envAide();
         return returnValue;
     } 

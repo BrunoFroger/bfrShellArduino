@@ -14,6 +14,7 @@
 #include "erreurs.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void cpAide(void){
     fluxWriteln("fluxout", "Commande cp :");
@@ -21,10 +22,10 @@ void cpAide(void){
     fluxWriteln("fluxout", "usage    : cp <fichier source> <fichier destination>");
 }
 
-int cp(String commande){
+int cp(struct_cde_data data){
     // decomposeCommande(commande, ' ');
     int returnValue=NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         cpAide();
         return returnValue;
     } 

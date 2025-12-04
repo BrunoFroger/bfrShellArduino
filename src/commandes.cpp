@@ -9,7 +9,6 @@
 #include <Arduino.h>
 
 #include "commandes.hpp"
-#include "analyseCommande.hpp"
 
 // pour ajouter de nouvelles fonctions :
 //      - ajouter son nom dans la lite listeCommandes (par ordre alphabitique)
@@ -20,11 +19,14 @@
 //          - relancer le build 
 //      - mettre a jour la variable nb_commandes
 
+
+struct_cde_data main_cde_data;
+struct_cde_flux main_cde_flux;
+
 const String listeCommandes[]={"aide", "cat", "cd", "cp", "env", "getAnalogPin", "getDigitalPin", "grep", 
             "history", "ls", "mkdir", "pwd", "rm", "rmdir", "set", "setDigitalPin", "unset"};
-int (*functptr[])(String) = { aide, cat, cd, cp, env, getAnalogPin, getDigitalPin, grep, 
+int (*functptr[])(struct_cde_data) = { aide, cat, cd, cp, env, getAnalogPin, getDigitalPin, grep, 
             hystory, ls, mkdir, pwd, rm, rmdir, set, setDigitalPin, unset } ;
 
 // cdes a prevoir : 
-//  - gestion historique de commandes avec fleches haut et bas
 //  - gestion completion des commandes avec tab

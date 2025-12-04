@@ -14,6 +14,7 @@
 #include "erreurs.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void catAide(void){
     fluxWriteln("fluxout", "Commande cat :");
@@ -21,10 +22,10 @@ void catAide(void){
     fluxWriteln("fluxout", "usage    : cat <nom du fichier>");
 }
 
-int cat(String commande){
+int cat(struct_cde_data data){
     // decomposeCommande(commande, ' ');
     int returnValue=NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         catAide();
         return returnValue;
     } 

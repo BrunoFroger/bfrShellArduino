@@ -13,6 +13,7 @@
 #include "erreurs.hpp"
 #include "commandes.hpp"
 #include "gestionFlux.hpp"
+#include "analyseCommande.hpp"
 
 #define NB_PIPES    10
 
@@ -62,9 +63,10 @@ int sdInit(void){
     } else {
         fluxWriteln("fluxout", "Carte SD initialisée.");
         String commande = "set pwd \"" + repertoire + "\"";
-        analyseCommande(commande);
-        commande = "env";
-        analyseCommande(commande);
+        main_cde_data.commande = commande;
+        analyseCommande(main_cde_data);
+        main_cde_data.commande = "env";
+        analyseCommande(main_cde_data);
         sdOk=1;
     }
     return sdOk;
@@ -153,7 +155,8 @@ File sdOpenDir(String filename){
     }
     // Serial.println("sdOpenDir : nvx repertoire : " + repertoire);
     
-    analyseCommande("set pwd \"" + repertoire + "\"");
+    main_cde_data.commande = "set pwd \"" + repertoire + "\"";
+    analyseCommande(main_cde_data);
     return SD.open(repertoire);
 }
 

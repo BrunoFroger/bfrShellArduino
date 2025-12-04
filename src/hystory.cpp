@@ -23,10 +23,10 @@ void hystoryAide(void){
 }
 
 
-int hystory(String commande){
+int hystory(struct_cde_data data){
     // decomposeCommande(commande, ' ');
     int returnValue=NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         hystoryAide();
         return returnValue;
     } 

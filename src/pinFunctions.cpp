@@ -14,6 +14,7 @@
 #include "gestionFlux.hpp"
 #include "datas.hpp"
 #include "commandes.hpp"
+#include "commandes.hpp"
 
 
 void getAnalogPinAide(void){
@@ -22,9 +23,9 @@ void getAnalogPinAide(void){
     fluxWriteln("fluxout", "usage    : getAnalogPin <pin number>");
 }
 
-int getAnalogPin(String commande){
+int getAnalogPin(struct_cde_data data){
     // int returnValue = -1;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         getAnalogPinAide();
         return 0;
     }
@@ -38,9 +39,9 @@ void getDigitalPinAide(void){
     fluxWriteln("fluxout", "usage    : getDigitalPin <pin number>");
 }
 
-int getDigitalPin(String commande){
+int getDigitalPin(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         getDigitalPinAide();
         return returnValue;
     }
@@ -54,9 +55,9 @@ void setDigitalPinAide(void){
     fluxWriteln("fluxout", "usage    : setDigitalPin <pin number> <valeur>");
 }
 
-int setDigitalPin(String commande){
+int setDigitalPin(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         setDigitalPinAide();
         return returnValue;
     }

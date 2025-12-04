@@ -14,6 +14,7 @@
 #include "commandes.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void pwdAide(void){
     fluxWriteln("fluxout", "Commande pwd :");
@@ -21,9 +22,9 @@ void pwdAide(void){
     fluxWriteln("fluxout", "usage    : pwd ");
 }
 
-int pwd(String commande){
+int pwd(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         pwdAide();
         return returnValue;
     } 

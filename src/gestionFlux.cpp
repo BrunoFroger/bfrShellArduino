@@ -11,6 +11,8 @@
 #include <SPI.h>
 #include <SD.h>
 
+#include "commandes.hpp"
+
 void fluxFlush(String flux){
     if (flux.equals("fluxout")){
         Serial.flush();

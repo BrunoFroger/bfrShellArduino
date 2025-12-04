@@ -15,6 +15,7 @@
 #include "datas.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void cdAide(void){
     fluxWriteln("fluxout", "Commande cd :");
@@ -22,10 +23,10 @@ void cdAide(void){
     fluxWriteln("fluxout", "usage    : cd <nom du repertoire>");
 }
 
-int cd(String commande){
+int cd(struct_cde_data data){
     int returnValue = NO_ERREUR;
     String repertoire = getPwd();
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         cdAide();
         return returnValue;
     } 

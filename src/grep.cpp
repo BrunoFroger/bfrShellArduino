@@ -14,6 +14,7 @@
 #include "commandes.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void grepAide(void){
     fluxWriteln("fluxout", "Commande grep :");
@@ -21,9 +22,9 @@ void grepAide(void){
     fluxWriteln("fluxout", "usage    : grep <pattern> <nom fichier> ");
 }
 
-int grep(String commande){
+int grep(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         grepAide();
         return returnValue;
     } 

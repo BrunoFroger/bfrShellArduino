@@ -50,7 +50,7 @@ void listeHistorique(void){
         if (cdeHistorique[i].equals("")) break;
         char buffer[50], cde[30];
         cdeHistorique[i].toCharArray(cde,30);
-        sprintf(buffer, " %2d : %30s", i, cde);
+        sprintf(buffer, " %2d : %-30s\n", i, cde);
         cdeHistorique->toCharArray(cde,30);
         fluxWrite("fluxout", buffer);
     }

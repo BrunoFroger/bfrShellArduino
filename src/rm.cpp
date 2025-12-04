@@ -14,6 +14,7 @@
 #include "erreurs.hpp"
 #include "sd.hpp"
 #include "gestionFlux.hpp"
+#include "commandes.hpp"
 
 void rmAide(void){
     fluxWriteln("fluxout", "Commande rm :");
@@ -21,9 +22,9 @@ void rmAide(void){
     fluxWriteln("fluxout", "usage    : rm <nom du fichier>");
 }
 
-int rm(String commande){
+int rm(struct_cde_data data){
     int returnValue=NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         rmAide();
         return returnValue;
     } 

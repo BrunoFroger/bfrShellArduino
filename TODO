@@ -14,5 +14,6 @@ Liste des taches/corrections a réaliser
     - gerer redirection entrees/sorties '<' et '>'
     - ajouter option recursivite sur commande ls
     - gestion '*' et '?' dans designation des noms de fichiers
+    - gestion completion des commandes avec touche "tab"
 
 - Bugs a corriger

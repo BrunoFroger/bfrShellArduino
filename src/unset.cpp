@@ -22,9 +22,9 @@ void unsetAide(void){
     fluxWriteln("fluxout", "usage    : unset <nom_variable>");
 }
 
-int unset(String commande){
+int unset(struct_cde_data data){
     int returnValue = NO_ERREUR;
-    if (commande.equals("aide")){
+    if (data.commande.equals("aide")){
         unsetAide();
         return returnValue;
     } 

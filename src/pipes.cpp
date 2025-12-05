@@ -12,24 +12,30 @@
 
 #include "pipes.hpp"
 #include "sd.hpp"
+#include "erreurs.hpp"
+
+void pipeInit(void){
+    for (int i=0 ; i < NB_PIPES ; i++){
+        tblPipe[i].filename = "";
+        tblPipe[i].fic = nullptr;
+    }
+}
 
 String creePipe(void){
-    String pipe = "";
-    for(int i = 0 ; i < NB_PIPES ; i++){
-        if (! tblPipe[i].used){
-            tblPipe[i].used = true;
-            pipe = "pipe_" + i;
-            tblPipe[i].filename=pipe;
-            break;
-        }
-    }
-    return pipe;
+    return sdPipeOpen();
 }
 
 File *getpipeFile(String pipeName){
-
+    for (int i = 0 ; i < NB_PIPES ; i++){
+        if (tblPipe[i].filename.equals("")){
+            return tblPipe[i].fic;
+        }
+    }
+    return NULL;
 }
 
 int deletePipe(String pipeName){
-
+    int result = NO_ERREUR;
+    sdPipeClose(pipeName);
+    return result;
 }

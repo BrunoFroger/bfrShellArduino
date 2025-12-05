@@ -15,13 +15,15 @@
 #include "gestionFlux.hpp"
 #include "analyseCommande.hpp"
 #include "pipes.hpp"
+#include "sd.hpp"
 
 
 const int chipSelect = 10;
 int sdOk;
 File *fic;
 String repertoire = "/";
-
+int pipeNumber=0;
+sdPipe tblPipe[NB_PIPES];
 
 String getPwd(void){
     // Serial.println("SD.cpp : getPwd => <" + repertoire + ">");
@@ -47,10 +49,6 @@ String getPath(String filename){
 int sdInit(void){
     fluxWriteln("fluxout", "Initialisation de la carte SD...");
 
-    for (int i=0 ; i < NB_PIPES ; i++){
-        tblPipe[i].filename = "";
-        tblPipe[i].fic = nullptr;
-    }
     if (!SD.begin(chipSelect)) {
         fluxWriteln("fluxerr", "Erreur d'initialisation de la carte SD");
         sdOk=0; 
@@ -110,8 +108,6 @@ File sdOpen(String filename, String mode){
                     }
                 }
             }
-            tblPipe[i].filename=path;
-            tblPipe[i].fic=&fic;
             return fic;
         }
     }
@@ -208,36 +204,35 @@ int sdMkdir(String filename){
     return result;
 }
 
-File sdPipeOpen(String filename){
+String sdPipeOpen(String pipeName){
     // creer repertoire /tmp/pipes s'il n'existe pas
-    // creer un fichier pour ce pipe
     File fic;
     if ( ! SD.exists("/tmp/pipes")){
         SD.mkdir("/tmp/pipes)");
     }
-    String path = "/tmp/pipes/" + filename;
+    // creer un fichier pour ce pipe
+    String path = "";
     for (int i = 0 ; i < NB_PIPES ; i++){
         if (tblPipe[i].filename.length() == 0){
             fic = SD.open(path);
+            path = "/tmp/pipes/pipe_" + pipeName;
             tblPipe[i].filename=path;
             tblPipe[i].fic=&fic;
-            return fic;
+            return path;
         }
     }
-    return fic;
+    return path;
 }
 
-void sdPipeClose(String filename){    
-    String path = "/tmp/pipes/" + filename;
+void sdPipeClose(String filename){
     for (int i = 0 ; i < NB_PIPES ; i++){
         if (tblPipe[i].filename.equals(filename) == 0){
             tblPipe[i].fic->close();
-            SD.open(path);
-            tblPipe[i].filename="path";
-            tblPipe[i].used=false;
+            sdRemove(tblPipe[i].filename);
+            tblPipe[i].filename="";
+            tblPipe[i].open=false;
             tblPipe[i].fic=NULL;
             break;
         }
     }
-    sdRemove(path);
 }

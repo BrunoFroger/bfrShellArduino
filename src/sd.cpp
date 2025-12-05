@@ -231,12 +231,13 @@ void sdPipeClose(String filename){
     String path = "/tmp/pipes/" + filename;
     for (int i = 0 ; i < NB_PIPES ; i++){
         if (tblPipe[i].filename.equals(filename) == 0){
-            fic = SD.open(path);
-            tblPipe[i].filename=path;
-            tblPipe[i].fic=&fic;
-            return fic;
+            tblPipe[i].fic->close();
+            SD.open(path);
+            tblPipe[i].filename="path";
+            tblPipe[i].used=false;
+            tblPipe[i].fic=NULL;
+            break;
         }
     }
-    fic.close();
-    // supprimer le fichier de pipe correspondant
+    sdRemove(path);
 }

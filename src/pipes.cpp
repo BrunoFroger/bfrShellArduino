@@ -14,13 +14,16 @@
 #include "sd.hpp"
 
 String creePipe(void){
+    String pipe = "";
     for(int i = 0 ; i < NB_PIPES ; i++){
         if (! tblPipe[i].used){
             tblPipe[i].used = true;
-            tblPipe[i].filename="pipe_" + i;
-            pipe
+            pipe = "pipe_" + i;
+            tblPipe[i].filename=pipe;
+            break;
         }
     }
+    return pipe;
 }
 
 File *getpipeFile(String pipeName){

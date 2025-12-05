@@ -27,4 +27,6 @@
     extern String getPwd(void);
     extern String getPath(String);
     extern void setPwd(String);
+    extern File sdPipeOpen(String);
+    extern void sdPipeClose(File);
 #endif

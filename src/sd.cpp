@@ -14,20 +14,14 @@
 #include "commandes.hpp"
 #include "gestionFlux.hpp"
 #include "analyseCommande.hpp"
+#include "pipes.hpp"
 
-#define NB_PIPES    10
 
 const int chipSelect = 10;
 int sdOk;
 File *fic;
 String repertoire = "/";
 
-struct sdPipe{
-    String filename;
-    File *fic;
-};
-
-sdPipe tblPipe[NB_PIPES];
 
 String getPwd(void){
     // Serial.println("SD.cpp : getPwd => <" + repertoire + ">");
@@ -218,7 +212,7 @@ File sdPipeOpen(String filename){
     // creer repertoire /tmp/pipes s'il n'existe pas
     // creer un fichier pour ce pipe
     File fic;
-    if ( ! SD.exists("/tmp")){
+    if ( ! SD.exists("/tmp/pipes")){
         SD.mkdir("/tmp/pipes)");
     }
     String path = "/tmp/pipes/" + filename;
@@ -233,7 +227,16 @@ File sdPipeOpen(String filename){
     return fic;
 }
 
-void sdPipeClose(File fic){
+void sdPipeClose(String filename){    
+    String path = "/tmp/pipes/" + filename;
+    for (int i = 0 ; i < NB_PIPES ; i++){
+        if (tblPipe[i].filename.equals(filename) == 0){
+            fic = SD.open(path);
+            tblPipe[i].filename=path;
+            tblPipe[i].fic=&fic;
+            return fic;
+        }
+    }
     fic.close();
     // supprimer le fichier de pipe correspondant
 }

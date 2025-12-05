@@ -3,11 +3,17 @@ Liste des taches/corections a réaliser
 - travail en cours
     - gerer les pipes pour enchainement de commandes '|' ex ls | grep index
         - decomposition des commandes : OK
-        - creation des flux in et out : mis en place a valiser
-        - 
+        - creer les fichiers de transfert de données 
+            - la tache en amont du pipe crée le flux out (fichier dans le repetoire tmp/pipes)
+            - on transfert le nom de ce flux out a la tache aval suivante en tant que flux in
+            - la tache amont ecrit les données de sortie dans son flux out
+            - tant que le fichier existe la tache aval lit les donnée dans son flux in 
+            - quand la tache amont a terminé son traitement, on attend que le flux out soit vide pour fermer ce flux
+            - dans la tache aval, on attends que le flux in soit fermé pour finir son traitement.
 
 - travaux a valider :
     - gestion completion des commandes avec touche "tab"
+    - creation des flux in, out et err
 
 - commandes a realiser :
     - mv

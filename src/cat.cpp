@@ -23,31 +23,40 @@ void catAide(void){
 }
 
 int cat(struct_cde_data data){
-    // decomposeCommande(commande, ' ');
+    data.cdeFlux.fluxin = cdeTbl[1];
+    String fonction = "cat";
+    Serial.println(fonction + " : fluxin  = " + data.cdeFlux.fluxin);
+    Serial.println(fonction + " : fluxout = " + data.cdeFlux.fluxout);
+    Serial.println(fonction + " : fluxerr = " + data.cdeFlux.fluxerr);
     int returnValue=NO_ERREUR;
     if (data.commande.equals("aide")){
         catAide();
         return returnValue;
     } 
     if (isSdAvailable()){
-        String filename;
-        File fic;
-        filename = cdeTbl[1];
+        // File fic;
         // Serial.println("filename = " + filename);
-        if (filename.length() > 0){
-            fic = sdOpenRead(filename);
-            if (!fic){
-                fluxWriteln("fluxerr", "fichier " + filename + " non trouvé");
+        if (data.cdeFlux.fluxin.length() > 0){
+            // fic = sdOpenRead(data.cdeFlux.fluxin);
+            if (!fileExist(data.cdeFlux.fluxin)){
+                // int creePipe("cat");
+            }
+            if (!fluxAvailable(data.cdeFlux.fluxin)){
+                fluxWriteln("fluxerr", "fichier " + data.cdeFlux.fluxin + " non trouvé");
                 returnValue=ERREUR_FILE_NOT_FOUND;
             } else {
-                if (fic.isDirectory()){
-                    fluxWriteln("fluxerr", filename + " est un repertoire");
-                    returnValue=ERREUR_FILE_NOT_FOUND;
+                // if (fic.isDirectory()){
+                //     fluxWriteln("fluxerr", data.cdeFlux.fluxin + " est un repertoire");
+                //     returnValue=ERREUR_FILE_NOT_FOUND;
+                // }
+                // Serial.println("fluxout = <" + data.cdeFlux.fluxout + ">");
+                while (fluxAvailable(data.cdeFlux.fluxin)){
+                    // char buff[200];
+                    // strcpy(buff,fic.read());
+                    // fluxWrite(data.cdeFlux.fluxout, String(fic.read()));
+                    fluxWrite(data.cdeFlux.fluxout, String(fluxRead(data.cdeFlux.fluxin)));
+                    // Serial.write(fic.read());
                 }
-                while (fic.available()){
-                    Serial.write(fic.read());
-                }
-                fic.close();
             }
         } else {
             fluxWriteln("fluxerr", "manque nom du fichier\n");

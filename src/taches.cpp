@@ -1,0 +1,57 @@
+//---------------------------------------------------
+//
+//      taches.cpp
+//
+//      (c) B. Froger 2025
+//
+//---------------------------------------------------
+
+#include <iostream>
+
+#include "gestionFlux.hpp"
+#include "sd.hpp"
+#include "commandes.hpp"
+#include "taches.hpp"
+#include "erreurs.hpp"
+
+tache::tache(struct_cde_flux flux, String commande){
+    this->init(flux, commande);
+};
+
+int tache::init(struct_cde_flux flux, String commande){
+    int result = NO_ERREUR;
+    this->flux = flux;
+    int index = 0;
+    int pos;
+    while (commande.length() > 0){
+        pos = commande.lastIndexOf(" ");
+        this->parametres[index] = commande.substring(0, pos);
+        commande = commande.substring(pos + 1);
+    }
+    this->name = this->parametres[0];
+    this->info();
+    return result;
+};
+
+int tache::getPid(void){
+    return this->pid;
+};
+
+void tache::info(void){
+    Serial.println("--------------------------");
+    Serial.println(" Nom        : " + this->name);
+    Serial.println(" Pid        : " + this->pid);
+    Serial.println(" Parametres :");
+    for (int i = 1 ; i < MAX_PARAMETRES ; i++){
+        if (this->parametres[i].length() > 0){
+            Serial.println("       " + this->parametres[i]);
+        } else break;
+    }
+    Serial.println("--------------------------");
+};
+
+int tache::exec(void){
+    int result=NO_ERREUR;
+
+    return result;
+};

@@ -14,6 +14,8 @@
 #include "gestionFlux.hpp"
 #include "commandes.hpp"
 #include "completion.hpp"
+#include "wifiTools.hpp"
+#include "serverWeb.hpp"
 
 String saisie;
 
@@ -35,6 +37,23 @@ void setup() {
   fluxWriteln("fluxout", "Serial initialized");
 
   sdInit();
+  initWifi();
+
+  // demarrage du serveur Web
+  server.begin();
+  delay(100);
+  // Source - https://stackoverflow.com/a
+  // Posted by Christoph Ketzler
+  // Retrieved 2025-12-16, License - CC BY-SA 4.0
+
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Origin", "*");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Methods", "GET, POST, PUT");
+  DefaultHeaders::Instance().addHeader("Access-Control-Allow-Headers", "Content-Type");
+  delay(100);
+  Serial.println("serveur Web démarré");
+  initServerWeb();
+
+
   prompt = base_prompt + getPwd() + " > ";
 
   main_cde_flux.fluxin="fluxin";

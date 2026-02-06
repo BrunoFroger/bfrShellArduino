@@ -19,3 +19,7 @@ void moniteur::init(){
 
 }
 
+String moniteur::getDatas(){
+    return this->dataConsole;
+}
+

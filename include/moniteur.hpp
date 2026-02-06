@@ -18,10 +18,14 @@
 
         public :
             moniteur();
+            String getDatas();
+            int getPid();
 
         protected :
             // datas
             String prompt;
+            int pid;
+            String dataConsole;
             // methodes
             void init();
 
